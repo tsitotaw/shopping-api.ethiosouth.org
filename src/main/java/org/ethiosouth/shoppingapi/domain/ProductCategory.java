@@ -6,26 +6,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-public class Product {
+public class ProductCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long sellerId;
     private String name;
-    private Double price;
-    private Integer offeredPoints;
-    private String img;
-    private String Description;
 
-    @ManyToOne()
-    @JoinColumn(name="cateoryId")
-    private ProductCategory category;
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 }
