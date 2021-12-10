@@ -12,20 +12,20 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Setter
 @Getter
-public class Product {
-
+public class ProductReview {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long sellerId;
-    private String name;
-    private Double price;
-    private Integer offeredPoints;
-    private String img;
-    private String Description;
+    @OneToOne()
+    @JoinColumn(name="buyerId")
+    private Customer buyerId;
 
-    @ManyToOne()
-    @JoinColumn(name="cateoryId")
-    private ProductCategory category;
+    @OneToOne()
+    @JoinColumn(name="productId")
+    private Product productId;
+
+    private Integer rating;
+    private String description;
+    private Boolean isApprovedByAdmin;
 }
