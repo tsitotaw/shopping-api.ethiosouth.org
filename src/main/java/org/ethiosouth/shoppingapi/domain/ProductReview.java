@@ -17,15 +17,15 @@ public class ProductReview {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne()
-    @JoinColumn(name="buyerId")
-    private Customer buyerId;
-
-    @OneToOne()
-    @JoinColumn(name="productId")
-    private Product productId;
-
     private Integer rating;
     private String description;
     private Boolean isApprovedByAdmin;
+
+    @OneToOne()
+    @JoinColumn(name="buyerId")
+    private Customer buyer;
+
+    @OneToOne()
+    @JoinColumn(name="productId")
+    private Product product;
 }

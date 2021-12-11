@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Setter
 @Getter
-@Table(name="ordere")
+@Table(name="cust_order")
 public class Order {
 
     @Id
@@ -22,11 +22,11 @@ public class Order {
 
     @OneToOne()
     @JoinColumn(name="buyerId")
-    private Customer buyerId;
+    private Customer buyer;
 
     @OneToOne()
     @JoinColumn(name="productId")
-    private Product productId;
+    private Product product;
 
     private LocalDate orderedDate;
     private LocalDate shippedDate;
