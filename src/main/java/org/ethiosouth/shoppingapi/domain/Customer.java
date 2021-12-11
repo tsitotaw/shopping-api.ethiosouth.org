@@ -33,4 +33,8 @@ public class Customer {
     @JoinColumn(name="billingAddressId")
     private Address billingAddress;
 
+    @ManyToOne()
+    @JoinColumn(name="role_id")
+    private Role role;
+
 }
