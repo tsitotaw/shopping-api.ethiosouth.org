@@ -1,18 +1,44 @@
 package org.ethiosouth.shoppingapi.services.implementation;
 
+import lombok.RequiredArgsConstructor;
 import org.ethiosouth.shoppingapi.domain.Customer;
 import org.ethiosouth.shoppingapi.repositories.CustomerRepository;
 import org.ethiosouth.shoppingapi.services.contract.ShoppingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
-public class CustomerService implements ShoppingService<Customer> {
+@RequiredArgsConstructor
+public class CustomerService implements ShoppingService<Customer>, UserDetailsService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Customer user = this.customerRepository.findByEmail(username);
+        if(user == null){
+            throw new UsernameNotFoundException("Provided Email is not a valid username");
+        }
+
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
+        return new User(user.getEmail(), user.getPassword(), authorities);
+    }
 
     @Override
     public List<Customer> findAll() {
@@ -26,6 +52,7 @@ public class CustomerService implements ShoppingService<Customer> {
 
     @Override
     public Customer save(Customer customer) {
+        customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
         return this.customerRepository.save(customer);
     }
 
@@ -38,4 +65,5 @@ public class CustomerService implements ShoppingService<Customer> {
     public void delete(Long id) {
         this.customerRepository.deleteById(id);
     }
+
 }

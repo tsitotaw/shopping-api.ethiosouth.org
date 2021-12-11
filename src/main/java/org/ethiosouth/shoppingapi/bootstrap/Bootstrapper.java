@@ -2,6 +2,7 @@ package org.ethiosouth.shoppingapi.bootstrap;
 
 import org.ethiosouth.shoppingapi.domain.*;
 import org.ethiosouth.shoppingapi.repositories.*;
+import org.ethiosouth.shoppingapi.services.implementation.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class Bootstrapper implements CommandLineRunner {
     private AddressRepository addressRepository;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private CustomerService customerService;
 
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
@@ -53,9 +54,9 @@ public class Bootstrapper implements CommandLineRunner {
         Customer adminC = new Customer(8L, "Admin", "Admin", "aadmin@gmail.com", "admin", 0, false, false, a1, a1, admin);
         Customer cust1 = new Customer(11L, "Alex", "Bengo", "abengo@gmail.com", "123456", 0, true, true, a1, a1, seller);
         Customer custTwo = new Customer(21L, "Peter", "Simon", "psimon@gmail.com", "123456", 0, false, false, a2, a2, buyer);
-        this.customerRepository.save(adminC);
-        this.customerRepository.save(cust1);
-        var buyerCustomer = this.customerRepository.save(custTwo);
+        this.customerService.save(adminC);
+        this.customerService.save(cust1);
+        var buyerCustomer = this.customerService.save(custTwo);
 
         ProductCategory pc1 = new ProductCategory(5L, "Entertainment");
         ProductCategory pc2 = new ProductCategory(6L, "Educational");
