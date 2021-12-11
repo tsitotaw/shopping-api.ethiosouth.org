@@ -21,6 +21,13 @@ public class ProductCategory {
 
     private String name;
 
+    public ProductCategory(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @OneToMany(mappedBy = "category")
     private List<Product> products;
+
+
 }
