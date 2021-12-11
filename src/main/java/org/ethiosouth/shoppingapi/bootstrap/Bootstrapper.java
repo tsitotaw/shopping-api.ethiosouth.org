@@ -49,7 +49,6 @@ public class Bootstrapper implements CommandLineRunner {
         this.productCategoryRepository.save(pc1);
         this.productCategoryRepository.save(pc2);
 
-
         Product p3 = new Product(8L, 1L, "SoccerBall", 5D, 0, "default", "For Soccer Lovers", pc1);
         Product p2 = new Product(7L, 1L, "English for Beginners", 10D, 0, "default", "Learn English Easy!", pc2);
         Product p1 = new Product(41L, 1L, "X-BOX", 209D, 1, "default", "For your enjoyment --- feel free to enjoy XBOX!", pc1);
