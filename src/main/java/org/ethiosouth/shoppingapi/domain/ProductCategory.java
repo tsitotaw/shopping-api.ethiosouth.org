@@ -1,5 +1,6 @@
 package org.ethiosouth.shoppingapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "products"})
 public class ProductCategory {
 
     @Id

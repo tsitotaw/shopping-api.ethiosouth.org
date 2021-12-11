@@ -16,6 +16,7 @@ public class ProductService implements ShoppingService<Product> {
 
     @Override
     public List<Product> findAll() {
+
         return (List<Product>) this.productRepository.findAll();
     }
 
