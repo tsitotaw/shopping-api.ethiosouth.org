@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/productReviews")
+@RequestMapping("/api/v1/productreviews")
 @CrossOrigin
 public class ProductReviewController {
 
