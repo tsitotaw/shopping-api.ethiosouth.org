@@ -50,8 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             cors.setAllowedHeaders(List.of("*"));
             return cors;
         }).and().csrf().disable();
-        //.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
-
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().frameOptions().disable();
@@ -59,6 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/h2-console/**").permitAll();
         http.authorizeRequests().antMatchers("/login").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/roles/**").permitAll();// .hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/customers/**").permitAll();// .hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/customers/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/orders/**").hasAnyAuthority("BUYER", "ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/productreviews/**").hasAnyAuthority("BUYER", "SELLER", "ADMIN");
@@ -76,14 +76,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-//        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
 }

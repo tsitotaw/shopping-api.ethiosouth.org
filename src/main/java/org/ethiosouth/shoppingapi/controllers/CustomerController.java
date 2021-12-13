@@ -26,7 +26,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public Customer save(@RequestBody Customer customer){
+    public Customer save(Customer customer){
         return this.customerService.save(customer);
     }
 
@@ -34,7 +34,6 @@ public class CustomerController {
     public void update(@RequestBody Customer customer, @PathVariable Long id){
         this.customerService.update(customer, id);
     }
-
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
         this.customerService.delete(id);
