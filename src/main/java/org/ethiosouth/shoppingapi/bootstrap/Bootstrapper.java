@@ -63,10 +63,10 @@ public class Bootstrapper implements CommandLineRunner {
         ProductCategory pcObj1 = this.productCategoryRepository.save(pc1);
         ProductCategory pcObj2 =this.productCategoryRepository.save(pc2);
 
-        Product p3 = new Product(8L, 1L, "SoccerBall", 5D, 0, "default", "For Soccer Lovers", pcObj1);
-        Product p2 = new Product(7L, 1L, "English for Beginners", 10D, 0, "default", "Learn English Easy!", pcObj2);
-        Product p1 = new Product(41L, 1L, "X-BOX", 209D, 1, "default", "For your enjoyment --- feel free to enjoy XBOX!", pcObj1);
-        Product p4 = new Product(46L, 1L, "FIFA", 200D, 1, "default", "For your enjoyment --- feel free to enjoy FIFA2021!", pcObj1);
+        Product p3 = new Product(8L, 1L, "Blue Jean Jacket", 5D, 0, "https://i.ibb.co/mJS6vz0/blue-jean-jacket.png", "For Soccer Lovers", pcObj1);
+        Product p2 = new Product(7L, 1L, "Blue Beanie", 10D, 0, "https://i.ibb.co/ypkgK0X/blue-beanie.png", "Learn English Easy!", pcObj2);
+        Product p1 = new Product(41L, 1L, "Brown Brim", 209D, 1, "https://i.ibb.co/ZYW3VTp/brown-brim.png", "For your enjoyment --- feel free to enjoy XBOX!", pcObj1);
+        Product p4 = new Product(46L, 1L, "Adidas Yeezy", 200D, 1, "https://i.ibb.co/dJbG1cT/yeezy.png", "For your enjoyment --- feel free to enjoy FIFA2021!", pcObj1);
 
         var product2 = this.productRepository.save(p2);
         var product3 = this.productRepository.save(p3);
