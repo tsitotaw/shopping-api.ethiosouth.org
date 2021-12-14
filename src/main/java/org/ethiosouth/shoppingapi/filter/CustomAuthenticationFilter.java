@@ -3,6 +3,7 @@ package org.ethiosouth.shoppingapi.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.ethiosouth.shoppingapi.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -47,7 +48,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         //access the authenticated user
         User user = (User) authentication.getPrincipal();
-
         // use the user to create the jwt
         Algorithm algorithm = Algorithm.HMAC256("ethio__south__secret".getBytes());
 

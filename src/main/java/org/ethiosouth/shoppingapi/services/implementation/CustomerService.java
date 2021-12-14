@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +37,13 @@ public class CustomerService implements ShoppingService<Customer>, UserDetailsSe
         }
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
+
+        authorities.add(new SimpleGrantedAuthority("A:"+user.getId().toString()));
+        authorities.add(new SimpleGrantedAuthority("B:"+user.getRole().getName()));
+        authorities.add(new SimpleGrantedAuthority("C:"+user.getRole().getPermissions()));
+
+        authorities.add(new SimpleGrantedAuthority("D:"+ user.getIsSeller().toString()));
+        authorities.add(new SimpleGrantedAuthority("E:"+ user.getIsSellerApprovedByAdmin().toString()));
         return new User(user.getEmail(), user.getPassword(), authorities);
     }
 
@@ -58,6 +65,8 @@ public class CustomerService implements ShoppingService<Customer>, UserDetailsSe
 
     @Override
     public void update(Customer customer, Long id) {
+        Customer existingCustomer = this.customerRepository.findById(id).orElse(null);
+        customer.setPassword(existingCustomer.getPassword());
         this.save(customer);
     }
 

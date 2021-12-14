@@ -1,10 +1,12 @@
 package org.ethiosouth.shoppingapi.controllers;
 
 import org.ethiosouth.shoppingapi.domain.Customer;
+import org.ethiosouth.shoppingapi.repositories.CustomerRepository;
 import org.ethiosouth.shoppingapi.services.implementation.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -14,6 +16,8 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @GetMapping
     public List<Customer> getAll(){
@@ -21,7 +25,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public Customer getAll(@PathVariable Long id){
+    public Customer get(@PathVariable Long id){
         return this.customerService.findById(id);
     }
 
@@ -31,8 +35,12 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public void update(@RequestBody Customer customer, @PathVariable Long id){
+    public void update(Customer customer, @PathVariable Long id){
         this.customerService.update(customer, id);
+    }
+    @PutMapping("/approve/{id}")
+    public void approve(Customer customer, @PathVariable Long id){
+        this.customerRepository.updateApproval(customer.getIsSellerApprovedByAdmin(), id);
     }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){

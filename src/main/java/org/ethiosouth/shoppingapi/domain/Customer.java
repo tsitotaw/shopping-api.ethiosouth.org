@@ -25,6 +25,10 @@ public class Customer {
     private Boolean isSeller;
     private Boolean isSellerApprovedByAdmin;
 
+    public Long getId() {
+        return id;
+    }
+
     @OneToOne()
     @JoinColumn(name="shippingAddressId")
     private Address shippingAddress;
