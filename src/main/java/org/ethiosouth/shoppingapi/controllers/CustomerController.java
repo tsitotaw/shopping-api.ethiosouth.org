@@ -42,6 +42,7 @@ public class CustomerController {
     public void approve(Customer customer, @PathVariable Long id){
         this.customerRepository.updateApproval(customer.getIsSellerApprovedByAdmin(), id);
     }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
         this.customerService.delete(id);

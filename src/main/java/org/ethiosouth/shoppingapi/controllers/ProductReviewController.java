@@ -1,6 +1,8 @@
 package org.ethiosouth.shoppingapi.controllers;
 
+import org.ethiosouth.shoppingapi.domain.Customer;
 import org.ethiosouth.shoppingapi.domain.ProductReview;
+import org.ethiosouth.shoppingapi.repositories.ProductReviewRepository;
 import org.ethiosouth.shoppingapi.services.implementation.ProductReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,9 @@ public class ProductReviewController {
 
     @Autowired
     private ProductReviewService productReviewService;
+
+    @Autowired
+    private ProductReviewRepository productReviewRepository;
 
     @GetMapping
     public List<ProductReview> getAll(){
@@ -33,6 +38,11 @@ public class ProductReviewController {
     @PutMapping("/{id}")
     public void update(@RequestBody ProductReview productReview, @PathVariable Long id){
         this.productReviewService.update(productReview, id);
+    }
+
+    @PutMapping("/review/{id}")
+    public void review(ProductReview pReview, @PathVariable Long id){
+        this.productReviewRepository.updateApproval(true, id);
     }
 
     @DeleteMapping("/{id}")

@@ -77,7 +77,9 @@ public class Bootstrapper implements CommandLineRunner {
         var product4 = this.productRepository.save(p4);
 
         ProductReview pr1 = new ProductReview(10L, 5, "Best Product", true, buyerCustomer, product3);
+        ProductReview pr2 = new ProductReview(15L, 3, "Nice Product", false, buyerCustomer, product3);
         this.productReviewRepository.save(pr1);
+        this.productReviewRepository.save(pr2);
 
         Order o1 = new Order(1L, buyerCustomer, product2, LocalDate.now(), null, null, null, false,false,false);
         Order o2 = new Order(2L, buyerCustomer, product1, LocalDate.now().minusDays(5), LocalDate.now(), null, null, true,false,false);
