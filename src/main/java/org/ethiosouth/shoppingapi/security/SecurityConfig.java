@@ -59,11 +59,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/roles/**").permitAll();// .hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/customers/**").permitAll();// .hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/customers/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/orders/**").hasAnyAuthority("BUYER", "ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/productreviews/**").hasAnyAuthority("BUYER", "SELLER", "ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/products/**").hasAnyAuthority("SELLER", "ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/productcategories/**").hasAnyAuthority("SELLER", "ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/customers/**").permitAll();//.hasAnyAuthority("BUYER", "SELLER", "ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/orders/**").permitAll();//.hasAnyAuthority("BUYER", "ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/productreviews/**").permitAll();//.hasAnyAuthority("BUYER", "SELLER", "ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll();//.hasAnyAuthority("BUYER", "SELLER", "ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/products/**").permitAll();//.hasAnyAuthority("SELLER", "ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/productcategories/**").permitAll();//.hasAnyAuthority("SELLER", "ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
 
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
