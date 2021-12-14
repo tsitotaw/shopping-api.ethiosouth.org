@@ -58,10 +58,11 @@ public class Bootstrapper implements CommandLineRunner {
         this.customerService.save(cust1);
         var buyerCustomer = this.customerService.save(custTwo);
 
-        ProductCategory pc1 = new ProductCategory(5L, "Entertainment");
-        ProductCategory pc2 = new ProductCategory(6L, "Educational");
+        ProductCategory pc1 = new ProductCategory(null, "Entertainment");
         ProductCategory pcObj1 = this.productCategoryRepository.save(pc1);
-        ProductCategory pcObj2 =this.productCategoryRepository.save(pc2);
+
+        ProductCategory pc2 = new ProductCategory(null, "Educational");
+        ProductCategory pcObj2 = this.productCategoryRepository.save(pc2);
 
         Product p3 = new Product(8L, 1L, "SoccerBall", 5D, 0, "default", "For Soccer Lovers", pcObj1);
         Product p2 = new Product(7L, 1L, "English for Beginners", 10D, 0, "default", "Learn English Easy!", pcObj2);

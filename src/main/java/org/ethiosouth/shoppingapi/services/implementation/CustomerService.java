@@ -37,6 +37,7 @@ public class CustomerService implements ShoppingService<Customer>, UserDetailsSe
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
+        authorities.add(new SimpleGrantedAuthority(user.getId().toString()));
         return new User(user.getEmail(), user.getPassword(), authorities);
     }
 
