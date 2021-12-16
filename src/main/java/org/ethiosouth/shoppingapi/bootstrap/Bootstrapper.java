@@ -35,6 +35,9 @@ public class Bootstrapper implements CommandLineRunner {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private FollowerRepository followerRepository;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -43,7 +46,7 @@ public class Bootstrapper implements CommandLineRunner {
         this.addressRepository.save(a1);
         this.addressRepository.save(a2);
 
-        Role r2 = new Role(2L, "BUYER", "productview,order,productreview,");
+        Role r2 = new Role(2L, "BUYER", "productview,order,productreview,followseller");
         Role r3 = new Role(3L, "SELLER","productadd,productview");
         Role r1 = new Role(98L, "ADMIN","productview,reviewapprove,sellerapprove,order,productreview");
 
@@ -51,14 +54,17 @@ public class Bootstrapper implements CommandLineRunner {
         Role buyer = this.roleRepository.save(r2);
         Role seller = this.roleRepository.save(r3);
 
-        Customer adminC = new Customer(8L, "Admin", "Admin", "aadmin@gmail.com", "admin", 0, false, false, a1, a1, admin);
+        Customer adminC = new Customer(8L, "Admin", "Admin", "aadmin@gmail.com", "123456", 0, false, false, a1, a1, admin);
         Customer cust1 = new Customer(11L, "Alex", "Bengo", "abengo@gmail.com", "123456", 0, true, true, a1, a1, seller);
         Customer cust11 = new Customer(122L, "Alex2", "Bengo2", "abengo2@gmail.com", "123456", 0, true, false, a1, a1, seller);
         Customer custTwo = new Customer(21L, "Peter", "Simon", "psimon@gmail.com", "123456", 0, false, false, a2, a2, buyer);
         this.customerService.save(adminC);
         this.customerService.save(cust1);
         this.customerService.save(cust11);
+
+        var sellerCustomer = this.customerService.save(cust1);
         var buyerCustomer = this.customerService.save(custTwo);
+        this.followerRepository.save(new Follower(null, buyerCustomer.getId(), sellerCustomer.getId()));
 
         ProductCategory pc1 = new ProductCategory(null, "Entertainment");
         ProductCategory pcObj1 = this.productCategoryRepository.save(pc1);
