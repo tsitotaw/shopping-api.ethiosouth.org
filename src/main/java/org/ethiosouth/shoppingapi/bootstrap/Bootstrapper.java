@@ -46,9 +46,9 @@ public class Bootstrapper implements CommandLineRunner {
         this.addressRepository.save(a1);
         this.addressRepository.save(a2);
 
-        Role r2 = new Role(2L, "BUYER", "productview,order,productreview,followseller");
-        Role r3 = new Role(3L, "SELLER","productadd,productview");
-        Role r1 = new Role(98L, "ADMIN","productview,reviewapprove,sellerapprove,order,productreview");
+        Role r2 = new Role(2L, "BUYER", "productview,order,productreview,followseller,vieworders");
+        Role r3 = new Role(3L, "SELLER","productadd,productview,vieworders,viewproductslist");
+        Role r1 = new Role(98L, "ADMIN","productview,reviewapprove,sellerapprove,order,productreview,vieworders,viewproductslist");
 
         Role admin = this.roleRepository.save(r1);
         Role buyer = this.roleRepository.save(r2);
